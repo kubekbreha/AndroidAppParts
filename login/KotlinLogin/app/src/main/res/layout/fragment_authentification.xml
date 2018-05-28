@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".fragments.AuthenticationFragment">
+
+
+    <FrameLayout
+        android:id="@+id/frag_authentication_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/transparent" />
+
+
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/frag_authentication_wave_top"
+        android:layout_width="match_parent"
+        android:layout_height="264dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:mwhCloseColor="@color/colorPrimary"
+        app:mwhColorAlpha="1"
+        app:mwhProgress="1"
+        app:mwhStartColor="@color/colorPrimary"
+        app:mwhVelocity="6"
+        app:mwhWaveHeight="20dp"
+        app:mwhWaves="
+            70,25,1.4,1.4,-26" />
+
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/frag_authentication_wave_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="248dp"
+        android:layout_alignParentBottom="true"
+        android:scaleX="-1"
+        android:scaleY="-1"
+        app:mwhCloseColor="@color/colorPrimary"
+        app:mwhColorAlpha="1"
+        app:mwhProgress="1"
+        app:mwhStartColor="@color/colorPrimary"
+        app:mwhVelocity="6"
+        app:mwhWaveHeight="20dp"
+        app:mwhWaves="
+            16,25,1.4,1.4,-26" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/frag_authentication_wave_top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="112dp"
+        android:text="Watson Chat App"
+        android:textColor="@color/colorWhite"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/frag_authentication_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/frag_authentication_top_layout"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Log in"
+        android:textAllCaps="false"
+        android:textColor="@color/light_gray"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/frag_authentication_btn_google_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="104dp"
+        android:background="@drawable/button_rounded_white"
+        android:drawableStart="@drawable/google_logo_color_xml"
+        android:elevation="0dp"
+        android:minWidth="120dp"
+        android:paddingStart="28dp"
+        android:text="  Sign with Google          "
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+
+    <Button
+        android:id="@+id/frag_authentication_sign_up_with_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/frag_authentication_btn_google_sign_in"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:background="@color/transparent"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:text="Sign up with email"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="60dp"
+        android:text="By continuing, you agree to our Terms of Service and Privacy Policy"
+        android:textColor="@color/light_gray"
+        android:textSize="9sp" />
+
+
+</RelativeLayout>
