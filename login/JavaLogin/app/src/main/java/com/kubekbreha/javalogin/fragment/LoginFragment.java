@@ -52,10 +52,17 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kubekbreha.javalogin.MainActivity;
 import com.kubekbreha.javalogin.R;
 
-
+/**
+ * Created by kubek on 1/21/18.
+ */
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,15 +75,14 @@ public class LoginFragment extends Fragment {
     private static final int FACEBOOK_LOG_IN_REQUEST_CODE = 64206;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     private GoogleApiClient mGoogleApiClient; // for google sign in
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private AnimationDrawable mAnimationDrawable;
     private RelativeLayout mRelativeLayout;
-    private CallbackManager mFacebookCallbackManager; // for facebook log in
 
     //SignIn buttons
-    private Button mFacebookButton;
     private Button mGoogleButton;
     private Button mRegisterButton;
     private Button mLoginButton;
@@ -107,20 +113,14 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mAuth = FirebaseAuth.getInstance();
 
         mRegisterButton = view.findViewById(R.id.register_button);
         mLoginButton = view.findViewById(R.id.login_button);
         mGoogleButton = view.findViewById(R.id.login_button_google);
 
-        mFacebookButton = view.findViewById(R.id.login_button_facebook);
-        mFacebookCallbackManager = CallbackManager.Factory.create();
-        mFacebookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initFBFacebookLogIn();
-            }
-        });
+
 
         //gradient
         mRelativeLayout = view.findViewById(R.id.layout_login);
@@ -192,8 +192,6 @@ public class LoginFragment extends Fragment {
             } else {
                 Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
             }
-        } else if (requestCode == FACEBOOK_LOG_IN_REQUEST_CODE) {
-            mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -235,7 +233,7 @@ public class LoginFragment extends Fragment {
         // Check if user is signed in (non-null) and update UI accordingly.
         mAuth.addAuthStateListener(mAuthStateListener);
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            updateUI();
+            checkUserExist();
         }
     }
 
@@ -247,64 +245,7 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    /**
-     * Init google logIn page.
-     */
-    private void initFBFacebookLogIn() {
-        Toast.makeText(getActivity(), "facebook login", Toast.LENGTH_SHORT).show();
 
-        LoginManager.getInstance().registerCallback(mFacebookCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "onSuccess");
-                Toast.makeText(getActivity(), "onSuccess", Toast.LENGTH_SHORT).show();
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(getActivity(), "onCancel", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "error : " + error.getMessage());
-            }
-
-        });
-    }
-
-    //TODO : Fix facebook logIn!
-
-    /**
-     * This take care of facebook logIn.
-     * If succeed send to checkUserExist() method.
-     */
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(LoginFragment.this.getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getActivity(), user.toString(), Toast.LENGTH_SHORT).show();
-                            mFacebookButton.setEnabled(true);
-                            updateUI();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getActivity(), "WTF", Toast.LENGTH_SHORT).show();
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            mFacebookButton.setEnabled(true);
-                        }
-                    }
-                });
-    }
 
     /**
      * Intent google logIn.
@@ -349,7 +290,7 @@ public class LoginFragment extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI();
+                            checkUserExist();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -364,6 +305,26 @@ public class LoginFragment extends Fragment {
         });
     }
 
+    /**
+     * Checking if user already exist in database.
+     * If not send user to SetupActivity.
+     */
+    private void checkUserExist() {
+        if (mAuth.getCurrentUser() != null) {
+            final String userId = mAuth.getCurrentUser().getUid();
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                        updateUI();
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+    }
 
     /**
      * Open MainActivity.

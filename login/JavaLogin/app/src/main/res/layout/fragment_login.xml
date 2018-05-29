@@ -65,26 +65,12 @@
         android:layout_alignBottom="@id/text_login_versions"
         android:layout_marginBottom="40dp">
 
-        <Button
-            android:id="@+id/login_button_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/button_margin"
-            android:background="@drawable/button_background_facebook"
-            android:drawableStart="@drawable/fb_logo_xml"
-            android:elevation="0dp"
-            android:minWidth="120dp"
-            android:paddingEnd="@dimen/button_padding"
-            android:clickable="true"
-            android:text="facebook"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/button_text_height" />
 
         <Button
             android:id="@+id/login_button_google"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="48dp"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="@dimen/button_margin"
             android:background="@drawable/button_background_google"
