@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "30738969738",
+    "firebase_url": "https://javalogin-15b32.firebaseio.com",
+    "project_id": "javalogin-15b32",
+    "storage_bucket": "javalogin-15b32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30738969738:android:292e51e0e5f342ff",
+        "android_client_info": {
+          "package_name": "com.kubekbreha.javalogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30738969738-hp4gng3f451djttsb4upbkj61uc8eld5.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "30738969738-hp4gng3f451djttsb4upbkj61uc8eld5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOrdx98y9G4FKiUu2Cu8ZL2m5ej8fmynM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
