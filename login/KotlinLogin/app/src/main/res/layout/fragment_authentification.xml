@@ -55,7 +55,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="112dp"
-        android:text="Watson Chat App"
+        android:text="Your app name"
         android:textColor="@color/colorWhite"
         android:textSize="28sp"
         android:textStyle="bold" />

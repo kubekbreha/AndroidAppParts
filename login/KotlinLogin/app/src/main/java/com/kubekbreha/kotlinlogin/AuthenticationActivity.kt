@@ -1,12 +1,9 @@
 package com.kubekbreha.kotlinlogin
 
-import android.app.FragmentManager
-import android.app.FragmentTransaction
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
-import com.google.firebase.FirebaseApp
 import com.kubekbreha.kotlinlogin.fragments.SplashFragment
 
 
@@ -27,13 +24,6 @@ class AuthenticationActivity : AppCompatActivity() {
     }
 
 
-    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
-        val fragmentTransaction = beginTransaction()
-        fragmentTransaction.func()
-        fragmentTransaction.commit()
-    }
-
-
     fun android.support.v4.app.FragmentManager.inTransaction(func: android.support.v4.app.FragmentTransaction.() -> android.support.v4.app.FragmentTransaction) {
         beginTransaction().func().commit()
     }
@@ -43,9 +33,5 @@ class AuthenticationActivity : AppCompatActivity() {
         supportFragmentManager.inTransaction { add(frameId, fragment) }
     }
 
-
-    fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
-        supportFragmentManager.inTransaction { replace(frameId, fragment) }
-    }
 
 }

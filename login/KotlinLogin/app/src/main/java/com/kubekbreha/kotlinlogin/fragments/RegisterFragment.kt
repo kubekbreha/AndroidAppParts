@@ -15,11 +15,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import com.google.android.gms.auth.api.Auth
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.kubekbreha.kotlinlogin.FirestoreUtil
@@ -42,9 +40,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     private var btnCreateAccount: Button? = null
     private var mProgressBar: ProgressDialog? = null
     private var btnBack: ImageButton? = null
-    private var btnGoogle: Button? = null
-    private var btnFacebook: Button? = null
-
 
     //Firebase references
     private var mDatabaseReference: DatabaseReference? = null
@@ -54,8 +49,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
     //Request codes
     val GOOGLE_LOG_IN_RC = 1
-    val FACEBOOK_LOG_IN_RC = 2
-    val TWITTER_LOG_IN_RC = 3
 
     // Google API Client object.
     var googleApiClient: GoogleApiClient? = null
@@ -89,8 +82,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         editPassword = view.findViewById<View>(R.id.frag_register_edit_password) as EditText
         btnCreateAccount = view.findViewById<View>(R.id.frag_register_btn_register) as Button
         btnBack = view.findViewById<View>(R.id.frag_register_btn_back_from_register) as ImageButton
-        btnGoogle = view.findViewById<View>(R.id.frag_register_register_button_google) as Button
-        btnFacebook = view.findViewById<View>(R.id.frag_register_register_button_facebook) as Button
 
         mProgressBar = ProgressDialog(activity)
         mDatabase = FirebaseDatabase.getInstance()
@@ -98,9 +89,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
         btnCreateAccount!!.setOnClickListener(this)
         btnBack!!.setOnClickListener(this)
-        //google login
-        btnGoogle!!.setOnClickListener(this)
-        btnFacebook!!.setOnClickListener(this)
+
     }
 
 
@@ -112,16 +101,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
             R.id.frag_register_btn_back_from_register -> {
                 activity!!.onBackPressed()
-            }
-
-            R.id.frag_register_register_button_google -> {
-                Log.i(TAG, "Trying to login via google.")
-                googleLogin()
-            }
-
-            R.id.frag_register_register_button_facebook -> {
-                Toast.makeText(activity, "Not implemented yet.",
-                        Toast.LENGTH_SHORT).show()
             }
 
             else -> {
@@ -173,11 +152,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun googleLogin() {
-        Log.i(TAG, "Starting Google LogIn Flow.")
-        val signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
-        startActivityForResult(signInIntent, GOOGLE_LOG_IN_RC)
-    }
+
 
     private fun updateUserInfoAndUI() {
         //start next activity
@@ -210,45 +185,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-        Log.i(TAG, "Got Result code ${requestCode}.")
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == GOOGLE_LOG_IN_RC) {
-            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-            Log.i(TAG, "With Google LogIn, is result a success? ${result.isSuccess}.")
-            if (result.isSuccess) {
-                // Google Sign In was successful, authenticate with Firebase
-                firebaseAuthWithGoogle(result.signInAccount!!)
-            } else {
-                Toast.makeText(activity, "Some error occurred.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-
-    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        mProgressBar!!.setMessage("Registering User...")
-        mProgressBar!!.show()
-        Log.i(TAG, "Authenticating user with firebase.")
-        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        mAuth?.signInWithCredential(credential)?.addOnCompleteListener(this!!.activity!!) { task ->
-            Log.i(TAG, "Firebase Authentication, is result a success? ${task.isSuccessful}.")
-            if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
-                FirestoreUtil.initCurrentUserIfFirstTime(activity!!, "") {
-                    startActivity(Intent(activity, MainActivity::class.java))
-                    activity!!.finish()
-                    mProgressBar!!.hide()
-                }
-            } else {
-                // If sign in fails, display a message to the user.
-                Log.e(TAG, "Authenticating with Google credentials in firebase FAILED !!")
-            }
-        }
     }
 
 }
