@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">JavaLogin</string>
+
+
+
+    <string name="request_client_id">your request client id</string>
+
 </resources>
