@@ -1,6 +1,6 @@
 # Java Login
 
-![main](readmeImages/1.jpg) ![login](readmeImages/2.jpg) ![register](readmeImages/3.jpg)
+![main|small](readmeImages/1.jpg) ![login|small](readmeImages/2.jpg) ![register|small](readmeImages/3.jpg)
 
 ## Setup
 

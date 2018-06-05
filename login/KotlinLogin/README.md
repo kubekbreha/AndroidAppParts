@@ -1,6 +1,6 @@
 # Kotlin Login
 
-![main](readmeImages/1.jpg) ![login](readmeImages/3.jpg) ![register](readmeImages/3.jpg) ![forgot](readmeImages/4.jpg)
+![main|small](readmeImages/1.jpg) ![login|small](readmeImages/3.jpg) ![register|small](readmeImages/3.jpg) ![forgot|small](readmeImages/4.jpg)
 
 ## Setup
 
