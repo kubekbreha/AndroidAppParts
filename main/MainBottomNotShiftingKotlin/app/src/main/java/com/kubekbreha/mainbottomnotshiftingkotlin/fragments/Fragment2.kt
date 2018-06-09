@@ -20,6 +20,10 @@ private const val ARG_PARAM2 = "param2"
  */
 class Fragment2 : Fragment() {
 
+    companion object {
+        fun newInstance(): Fragment2 = Fragment2()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
