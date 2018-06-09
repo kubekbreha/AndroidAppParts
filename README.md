@@ -11,8 +11,8 @@ Feel free to use it in your app.
 
 ### Kotlin
 * [ Login](https://github.com/kubekbreha/AndroidAppParts/tree/master/login/KotlinLogin)
-* [Bottom navigation](https://github.com/kubekbreha/AndroidAppParts/tree/master/main/MainBottomNotShiftingKotlin)
-* [Bottom navigation swipe](https://github.com/kubekbreha/AndroidAppParts/tree/master/main/MainBottomShiftingKotlin)
+* [Bottom navigation](https://github.com/kubekbreha/AndroidAppParts/tree/master/main/MainBottomKotlin)
+* [Bottom navigation simple](https://github.com/kubekbreha/AndroidAppParts/tree/master/main/MainBottomSimpleKotlin)
 * [Side navigation](https://github.com/kubekbreha/AndroidAppParts/tree/master/main/MainSideNavigationKotlin)
 * [Popup menu](https://github.com/kubekbreha/AndroidAppParts/tree/master/menu/PopupMenuKotlin)
 
