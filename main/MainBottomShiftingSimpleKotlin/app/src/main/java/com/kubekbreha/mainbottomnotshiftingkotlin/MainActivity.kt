@@ -3,6 +3,7 @@ package com.kubekbreha.mainbottomnotshiftingkotlin
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import com.kubekbreha.mainbottomnotshiftingkotlin.fragments.Fragment1
@@ -10,18 +11,23 @@ import com.kubekbreha.mainbottomnotshiftingkotlin.fragments.Fragment2
 import com.kubekbreha.mainbottomnotshiftingkotlin.fragments.Fragment3
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
-    lateinit var toolbar: ActionBar
+    private lateinit var toolbar: ActionBar
+    private lateinit var viewPager: ViewPager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewPager = findViewById(R.id.viewpager)
+
         toolbar = supportActionBar!!
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
+
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -36,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                 toolbar.title = "Fragment2"
                 val songsFragment = Fragment2.newInstance()
                 openFragment(songsFragment)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
